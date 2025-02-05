@@ -47,8 +47,11 @@ const stars = getStarsfield({ numStars: 2000 });
 scene.add(stars);
 
 //light
-const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
-scene.add(hemiLight);
+// const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
+// scene.add(hemiLight);
+const sunLight = new THREE.DirectionalLight(0xffffff);
+sunLight.position.set(-2, 0.5, 1.5);
+scene.add(sunLight);
 
 //controls
 const controls = new OrbitControls(camera, renderer.domElement);
