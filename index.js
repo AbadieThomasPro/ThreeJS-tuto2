@@ -33,7 +33,7 @@ const scene = new THREE.Scene();
 const loader = new THREE.TextureLoader();
 const geometry = new THREE.IcosahedronGeometry(1, 12);
 const material = new THREE.MeshStandardMaterial({
-    map: loader.load("earthlights1k.jpg")
+    map: loader.load("./textures/00_earthmap1k.jpg")
     // flatShading: true,
 });
 
