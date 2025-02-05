@@ -30,13 +30,15 @@ camera.position.z = 5;
 const scene = new THREE.Scene();
 
 //objet
-const geometry = new THREE.BoxGeometry();
+const loader = new THREE.TextureLoader();
+const geometry = new THREE.IcosahedronGeometry(1, 12);
 const material = new THREE.MeshStandardMaterial({
-    color: 0xffff00,
+    map: loader.load("earthlights1k.jpg")
+    // flatShading: true,
 });
 
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+const earthMesh = new THREE.Mesh(geometry, material);
+scene.add(earthMesh);
 
 //light
 const hemiLight = new THREE.HemisphereLight();
@@ -48,8 +50,8 @@ const controls = new OrbitControls(camera, renderer.domElement);
 function animate(t = 0) {
     requestAnimationFrame(animate); //on lui passe le nom de la fonction (pour faire la boucle ?) oui chaque seconte la fonction est appelé
 
-    cube.rotation.x += 0.001;
-    cube.rotation.y += 0.002;
+    earthMesh.rotation.x += 0.001;
+    earthMesh.rotation.y += 0.002;
     renderer.render(scene, camera);
     controls.update();
 }
