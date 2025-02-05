@@ -46,12 +46,30 @@ scene.add(earthGroup);
 const stars = getStarsfield({ numStars: 2000 });
 scene.add(stars);
 
+const lightsMat = new THREE.MeshBasicMaterial({
+    map: loader.load("./textures/03_earthlights1k.jpg"),
+    blending: THREE.AdditiveBlending, // permet de bien superposer
+});
+const lightsMesh = new THREE.Mesh(geometry, lightsMat);
+earthGroup.add(lightsMesh);
+
+const cloudsMat = new THREE.MeshStandardMaterial({
+    map: loader.load("./textures/05_earthcloudmaptrans.jpg"),
+    transparent: true,
+    opacity: 0.8,
+    blending: THREE.AdditiveBlending,
+});
+const cloudsMesh = new THREE.Mesh(geometry, cloudsMat);
+cloudsMesh.scale.setScalar(1.003);
+earthGroup.add(cloudsMesh);
+
 //light
-// const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
-// scene.add(hemiLight);
 const sunLight = new THREE.DirectionalLight(0xffffff);
 sunLight.position.set(-2, 0.5, 1.5);
 scene.add(sunLight);
+// const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
+// scene.add(hemiLight);
+
 
 //controls
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -60,6 +78,8 @@ function animate(t = 0) {
     requestAnimationFrame(animate); //on lui passe le nom de la fonction (pour faire la boucle ?) oui chaque seconte la fonction est appelé
 
     earthMesh.rotation.y += 0.002;
+    lightsMesh.rotation.y += 0.002;
+    cloudsMesh.rotation.y += 0.002;
     renderer.render(scene, camera);
     controls.update();
 }
