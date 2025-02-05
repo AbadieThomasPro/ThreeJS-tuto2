@@ -38,10 +38,14 @@ const material = new THREE.MeshStandardMaterial({
 });
 
 const earthMesh = new THREE.Mesh(geometry, material);
-scene.add(earthMesh);
+
+const earthGroup = new THREE.Group();
+scene.add(earthGroup);
+earthGroup.rotation.z = -23.4 * Math.PI / 180; // 23.4 angle de l'axe sur lequel tourne la terre
+earthGroup.add(earthMesh);
 
 //light
-const hemiLight = new THREE.HemisphereLight();
+const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
 scene.add(hemiLight);
 
 //controls
@@ -49,8 +53,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 function animate(t = 0) {
     requestAnimationFrame(animate); //on lui passe le nom de la fonction (pour faire la boucle ?) oui chaque seconte la fonction est appelé
-
-    earthMesh.rotation.x += 0.001;
+    
     earthMesh.rotation.y += 0.002;
     renderer.render(scene, camera);
     controls.update();
