@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "jsm/controls/OrbitControls.js";
+import getStarsfield from "./src/getStarfield.js";
 
 
 //////////
@@ -34,15 +35,16 @@ const loader = new THREE.TextureLoader();
 const geometry = new THREE.IcosahedronGeometry(1, 12);
 const material = new THREE.MeshStandardMaterial({
     map: loader.load("./textures/00_earthmap1k.jpg")
-    // flatShading: true,
 });
-
 const earthMesh = new THREE.Mesh(geometry, material);
 
 const earthGroup = new THREE.Group();
-scene.add(earthGroup);
 earthGroup.rotation.z = -23.4 * Math.PI / 180; // 23.4 angle de l'axe sur lequel tourne la terre
 earthGroup.add(earthMesh);
+scene.add(earthGroup);
+
+const stars = getStarsfield({ numStars: 2000 });
+scene.add(stars);
 
 //light
 const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
@@ -53,7 +55,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 function animate(t = 0) {
     requestAnimationFrame(animate); //on lui passe le nom de la fonction (pour faire la boucle ?) oui chaque seconte la fonction est appelé
-    
+
     earthMesh.rotation.y += 0.002;
     renderer.render(scene, camera);
     controls.update();
