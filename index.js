@@ -34,7 +34,7 @@ const scene = new THREE.Scene();
 const loader = new THREE.TextureLoader();
 const geometry = new THREE.IcosahedronGeometry(1, 12);
 const material = new THREE.MeshStandardMaterial({
-    map: loader.load("./textures/00_earthmap1k.jpg")
+    map: loader.load("./textures/earth/8k_earth_daymap.jpg")
 });
 const earthMesh = new THREE.Mesh(geometry, material);
 
@@ -47,14 +47,14 @@ const stars = getStarsfield({ numStars: 2000 });
 scene.add(stars);
 
 const lightsMat = new THREE.MeshBasicMaterial({
-    map: loader.load("./textures/03_earthlights1k.jpg"),
+    map: loader.load("./textures/earth/8k_earth_nightmap.jpg"),
     blending: THREE.AdditiveBlending, // permet de bien superposer
 });
 const lightsMesh = new THREE.Mesh(geometry, lightsMat);
 earthGroup.add(lightsMesh);
 
 const cloudsMat = new THREE.MeshStandardMaterial({
-    map: loader.load("./textures/05_earthcloudmaptrans.jpg"),
+    map: loader.load("./textures/earth/8k_earth_clouds.jpg"),
     transparent: true,
     opacity: 0.8,
     blending: THREE.AdditiveBlending,
