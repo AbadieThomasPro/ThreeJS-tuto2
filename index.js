@@ -81,11 +81,11 @@ scene.add(sunLight);
 const controls = new OrbitControls(camera, renderer.domElement);
 
 function animate(t = 0) {
-    requestAnimationFrame(animate); //on lui passe le nom de la fonction (pour faire la boucle ?) oui chaque seconte la fonction est appelé
+    requestAnimationFrame(animate); //on lui passe le nom de la fonction (chaque seconde la fonction est appelé)
 
     earthMesh.rotation.y += 0.002;
     lightsMesh.rotation.y += 0.002;
-    cloudsMesh.rotation.y += 0.002;
+    cloudsMesh.rotation.y += 0.0025;
     glowFresnelMesh.rotation.y += 0.002;
     renderer.render(scene, camera);
     controls.update();
