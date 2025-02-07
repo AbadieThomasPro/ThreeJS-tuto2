@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "jsm/controls/OrbitControls.js";
 import getStarsfield from "./src/getStarfield.js";
+import { getFresnelMat } from "./src/getFresnelMat.js";
 
 
 //////////
@@ -63,6 +64,11 @@ const cloudsMesh = new THREE.Mesh(geometry, cloudsMat);
 cloudsMesh.scale.setScalar(1.003);
 earthGroup.add(cloudsMesh);
 
+const FresnelMat = getFresnelMat();
+const glowFresnelMesh = new THREE.Mesh(geometry, FresnelMat);
+glowFresnelMesh.scale.setScalar(1.01);
+earthGroup.add(glowFresnelMesh);
+
 //light
 const sunLight = new THREE.DirectionalLight(0xffffff);
 sunLight.position.set(-2, 0.5, 1.5);
@@ -80,6 +86,7 @@ function animate(t = 0) {
     earthMesh.rotation.y += 0.002;
     lightsMesh.rotation.y += 0.002;
     cloudsMesh.rotation.y += 0.002;
+    glowFresnelMesh.rotation.y += 0.002;
     renderer.render(scene, camera);
     controls.update();
 }
